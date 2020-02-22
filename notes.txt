@@ -11,7 +11,46 @@ MICRO-SERVICES FAULT TOLERANCE AND RESILIENCE:
 	Challenge 1: any instance of service going down
 	Solution: we can have multiple instance running of single micro-service. The Eureka server registers all and does load balancing itself.
 	
-	Challenge 2: micro-service is slow (one slow micro-service should not affect the calls to other services). This happens generally because of multiple cocurrent threads running and none getting completed timely, hence overloading the system.
-	Solution: Implement time-outs
+	Challenge 2: micro-service is slow (one slow micro-service should not affect the calls to other services).
+				 This happens generally because of multiple cocurrent threads running and none getting completed timely, hence overloading the system.
+	Solution: Implement time-outs (time-outs will solve the problem only partly, 
+			  because the issue of threads getting consumed still may come if the request 	frequency is faster than the time-out period)
+				OR more smart solution:
+			  Implement CIRCUIT BREAKER
+			  Detect something is wrong and take temporary steps to avoid getting situation getting worse.
+			  Deactivate the "problem" component so that it does not affect downstream components
+			CIRCUIT BREAKER PARAMETERS:
+				1. Last n request to consider for the decision.
+				2. How many of those should fail ?
+				3. Timeout duration
+				4. How long to wait before trying again ?
+			FALLBACK when a circuit breaks
+				1. throw an error (very bad option)
+				2. return a default fallback response
+				3. save previous respones (cache) and use them when possible
+			Why CIRCUIT BREAKER ?
+				1. Failing fast
+				2. Fallback functionality
+				3. automatic recovery
+
+Hystrix framework for CIRCUIT BREAKER:
+	open source library originally created by Netflix
+	Implements circuit breaker pattern
+	We need to give the configuration parameters and it takes care of all
+	works well with Spring Boot
 	
+	
+Steps to implement hystrix.
+	1. add the maven spring-cloud-starter-netflix-hystrix dependency
+	2. Add @EnableCircuitBreaker to the application class
+	3. Add @HystrixCommand to methods that need circuit breakers
+	4. configure Hystrix behavior (circuit breaker parameters and fallback mechanism)
+
+How does hystrix work ?
+	Hystrix creates a proxy class (wrapper class for the hystrix class) for the API class and handles all the logic inside the proxy class to implement circuit breaker.
+	This becomes important when we implement hystrix command for a method being called from a parent method which is not in control of hystrix command. This is because then the proxy class by hystrix is not created.
+	To solve this problem, we take out the HystrixCommand method into a separate class
+
+
+
 
