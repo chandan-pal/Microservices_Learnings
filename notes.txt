@@ -63,6 +63,10 @@ Hystrix dashboard
 		4. add property management.endpoints.web.exposure.include=hystrix.stream in application.properties
 		
 
-
+BULKHEAD PATTERN:
+	different thread pool limit for different services
+	this can be also be done by hystrix
+	add thread pool propeties at the hystrix command level
+	
 
 
