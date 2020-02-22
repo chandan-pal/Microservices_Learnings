@@ -1,0 +1,17 @@
+DISCOVERY SERVER:
+- 8761 is the default port for eureka discovery server, which the clients hit time to time, to register themselves.
+
+MICRO-SERVICES FAULT TOLERANCE AND RESILIENCE:
+
+	Fault Tolerance:
+		given an application, if there is a fault, then what is the impact of the fault ?
+	Resilience:
+		is how many faults a system can tolerate
+	
+	Challenge 1: any instance of service going down
+	Solution: we can have multiple instance running of single micro-service. The Eureka server registers all and does load balancing itself.
+	
+	Challenge 2: micro-service is slow (one slow micro-service should not affect the calls to other services). This happens generally because of multiple cocurrent threads running and none getting completed timely, hence overloading the system.
+	Solution: Implement time-outs
+	
+
