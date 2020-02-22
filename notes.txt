@@ -50,6 +50,18 @@ How does hystrix work ?
 	Hystrix creates a proxy class (wrapper class for the hystrix class) for the API class and handles all the logic inside the proxy class to implement circuit breaker.
 	This becomes important when we implement hystrix command for a method being called from a parent method which is not in control of hystrix command. This is because then the proxy class by hystrix is not created.
 	To solve this problem, we take out the HystrixCommand method into a separate class
+	
+Hystrix dashboard
+	Hystrix provides the ability to display data in a dashboard, commonly referred to as hystrix dashboard.
+	A kind of web application with display of data like the different circuit-breakers in system, circuits-open, circuits closed, no of request coming in, no-of timeout happening etc.
+	Hystrix dashboard can be set up on a single application or as a separate application for a cluster of micro-services
+	
+	Steps to enable hystrix dashboard on a single application:
+		1. add the maven spring-cloud-starter-netflix-hystrix-dashboard dependency
+		2. add the maven spring-boot-starter-actuator dependency
+		3. Add @EnableHystrixDashboard to the application class
+		4. add property management.endpoints.web.exposure.include=hystrix.stream in application.properties
+		
 
 
 
