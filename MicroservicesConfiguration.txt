@@ -1,0 +1,23 @@
+MICROSERVICES CONFIGURATION
+---------------------------
+
+configurations like
+	- database connections
+	- credentials
+	- feature flags
+	- business logic configuration parameters
+	- scenario testing
+	- spring boot configuration
+	
+types of configuration files
+	xml
+	properties
+	yaml
+	json
+	
+a configuration file should be -
+	- externalized
+	- environment specific
+	- consistent
+	- version history
+	- real-time management
