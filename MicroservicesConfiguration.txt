@@ -78,3 +78,16 @@ Ways of configuring the Spring boot application:
 			- @Profile annotation on top of bean to indetify the bean for a specific profile.
 			e.g. @Profile("dev")
 	
+	6. Using Ennvironment Object (NOT AT ALL RECOMENDED)
+		"Environment" is a bean that we can inject to the application and then access the configuration values using it.
+		
+		@Autowired
+		private Environment env;
+		
+		env.toString(); - to print all the things environment object can offer.
+		env.getActiveProfiles(); - to get the list of active profiles
+		env.getProperty(); - to get the value of any property
+		
+		using Environment object gives control to look up properties and profiles
+
+		
