@@ -21,3 +21,31 @@ a configuration file should be -
 	- consistent
 	- version history
 	- real-time management
+
+Ways of configuring the Spring boot application:
+	1. application.properties - using @Value annotation
+		- this way configuration is not really externalized.
+		- this can be overwritten by an application.properties file in the same same location as of the jar
+		- which can further be overwridden by command line arguments to the spring boot application jar.
+		e.g. @Value("${property.key: default value}")
+		- we can also use Spring Expression Language (SPL) in @Value annotation.
+	2. @ConfigurationProperties - to get a group of configuration properties in one go
+		- create a bean class with member variables to hold the properties.
+		- anotate the bean class with @Configuration and @ConfigurationProperties("someprefeixKey")
+		- add the deifferent properties value in the application.properties file as below.
+		e.g. someprefeixKey.property1=someValue
+		e.g. someprefeixKey.property2=someValue2
+		- autowire the bean where the properties of the bean is needed
+		- advantages:
+			1. get the type safety
+			2. get a grooup of configuration properties in one go
+			3. if the configuration property is getting used at more than one place in then it is benefitial to use autowired bean instead of adding the @Value annotation each single place
+	3. actuator
+		- some configurations are pre available in the spring application for the user to configure the way in which application behaves
+		- actuator exposes some endpoint of the application
+		- to do this add the dependency spring-boot-starter-actuater
+		- add the property management.endpoints.web.exposure.include=<> in the application.properties
+		e.g. management.endpoints.web.exposure.include=*
+		- you can see all the properties exposed by the url localhost:8080/actuator/configprops
+		
+	4. YAML
