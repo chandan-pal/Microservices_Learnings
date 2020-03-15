@@ -48,4 +48,20 @@ Ways of configuring the Spring boot application:
 		e.g. management.endpoints.web.exposure.include=*
 		- you can see all the properties exposed by the url localhost:8080/actuator/configprops
 		
-	4. YAML
+	4. YAML (Yet Another Markup Language)
+		application.yml
+		- somewhat like JSON properties
+		- supports nesting
+		some syntaxes
+		e.g.
+		
+			db:
+				connection:
+					url: "dburl"
+				host:127.0.0.1
+				port:1200
+				
+		- these properties can be accessed as before like,
+			db.connection.url
+			d.port
+		
