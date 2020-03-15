@@ -52,7 +52,6 @@ Ways of configuring the Spring boot application:
 		application.yml
 		- somewhat like JSON properties
 		- supports nesting
-		some syntaxes
 		e.g.
 		
 			db:
@@ -64,4 +63,18 @@ Ways of configuring the Spring boot application:
 		- these properties can be accessed as before like,
 			db.connection.url
 			d.port
-		
+	
+	5. Spring Propfiles
+		- a set of configuration properties to create a profile
+		- default profile is active by default (application.properties)
+		- to create a new custom spring profile create a configuration file with syntax as below
+		- application-<profileName>.ext
+		- add the property "spring.profiles.active=profileName" in default profile to activate the configuration of specific profile
+		- this setting / property can be over-ridden by command line argument to activate different profile as and when required.
+		- this way gives the environment specific feature to the configuration file and allows to have different set of configuration values for different environments
+	
+		5.1. Selecting beans by profile
+			- help to point / handle different resources / schema / code-flow based on the current profile
+			- @Profile annotation on top of bean to indetify the bean for a specific profile.
+			e.g. @Profile("dev")
+	
