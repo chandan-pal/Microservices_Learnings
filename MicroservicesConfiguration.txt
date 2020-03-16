@@ -90,4 +90,15 @@ Ways of configuring the Spring boot application:
 		
 		using Environment object gives control to look up properties and profiles
 
-		
+
+SPRING CLOUD CONFIG SERVER
+	From single service to multiple microservices
+	- to achive consistancy working with multiple microservices, we can introduce a separate service as configuration provider.
+	- there are various different options for adding a configuration service to a bunch of microservices-
+		1. Apache Zookeeper
+		2. ETCD - didtributed key value store
+		3. Hashicorp Consul
+		4. Spring Cloud Configuration Server
+	- here we will learn to use Spring Cloud configuration Server
+	- Spring Cloud Configuration Server can look the values of the configurations from a GIT repo (This way we can achive a version control on our configurations)
+	
