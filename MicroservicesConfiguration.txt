@@ -100,5 +100,24 @@ SPRING CLOUD CONFIG SERVER
 		3. Hashicorp Consul
 		4. Spring Cloud Configuration Server
 	- here we will learn to use Spring Cloud configuration Server
-	- Spring Cloud Configuration Server can look the values of the configurations from a GIT repo (This way we can achive a version control on our configurations)
+	- Spring Cloud Configuration Server can look the values of the configurations from a GIT / SVN repo (This way we can achive a version control on our configurations)
 	
+	Setting up Spring Cloud Config Server:
+	
+	- create a new spring application with dependency "spring-cloud-starter-netflix-eureka-server".
+	- add annotation @EnableConfigServer to the main class of the config server
+	- in the application.properties add the property add the property "spring.cloud.config.server.git.uri" to point to your repo
+	- use the url localhost:portOfConfigServer/<fileNameIntheRepo>/<profileName>
+	e.g. http://localhost:8888/application/default
+	
+	now we have make other microservices as client of spring-cloud-config-server which is going to pull the configuration from the config server
+	
+	- add the dependency "spring-cloud-starter-config" in your existing microservices
+	- in application.properties of the microservice add the property "spring.cloud.config.uri" to point to the spring-cloud-config-server
+	
+	by doing the above, the microservice will pull the configuration from application.properties/yml file in the GIT repo
+	this "application" and its profiles will be global to all clients of the config server.
+	
+	to add a microservice specific configuration file add a separate file <microserviceName>.properties/yml in the GIT repo
+	this way only that microservice will pull values from that file
+	Note: MicroserviceName is the name of the application can be defined by the property "spring.application.name".
