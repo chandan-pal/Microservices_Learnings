@@ -121,3 +121,15 @@ SPRING CLOUD CONFIG SERVER
 	to add a microservice specific configuration file add a separate file <microserviceName>.properties/yml in the GIT repo
 	this way only that microservice will pull values from that file
 	Note: MicroserviceName is the name of the application can be defined by the property "spring.application.name".
+	
+	Now to enable real-time management:
+	Why?
+		- The spring cloud config server is always updated and takes value from the repo, without the need of restarting the server
+		- The clients do not always look for updated config. The clients keep a cache of the configuration. To update the configuration for the client, it needs to be restarted.
+	To update the configurations for the clients without restarting the client service
+		- add the dependency "spring-boot-starter-actuater"
+		- mark the components (classes/beans) which needs to be refreshed (and not cached) with annotation @RefreshScope
+		- this actuator exposes a refresh endpoint, which can be called to refresh the components which are marked for refresh
+		- to call the refresh send a POST request to the client microservice with url like localhost:8080/actuator/refresh (add header Content-type=application/json)
+	
+	Note: Not all the configurations are updated. Only the components marked with @RefreshScope are refreshed dynamically. We need to call the refresh endpoint to the get the configurations refreshed.
