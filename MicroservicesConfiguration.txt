@@ -133,3 +133,17 @@ SPRING CLOUD CONFIG SERVER
 		- to call the refresh send a POST request to the client microservice with url like localhost:8080/actuator/refresh (add header Content-type=application/json)
 	
 	Note: Not all the configurations are updated. Only the components marked with @RefreshScope are refreshed dynamically. We need to call the refresh endpoint to the get the configurations refreshed.
+	
+
+CONFIGURATION STRATEGIES:
+	1. 	configuration is microservice specific not likely to change
+		= Property File
+	2. configuration is microservice specific likely to change
+		= Config Server
+	3. 	configuration is microservice specific and is environment specific
+		= System variable with alias
+		
+Security of spring cloud config server
+	1. we can use spring cloud security to allow only authenticated microservices to access the configuration server
+	2. we can scure the GIT/SVN repo where the configuration is to allow only to limited users.
+	3. use encrypted value and not plain text to keep sensitive information in the repo. Spring cloud config server can encrypt and decrypt values
