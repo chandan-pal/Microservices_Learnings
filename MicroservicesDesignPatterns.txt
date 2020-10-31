@@ -1,0 +1,79 @@
+Service Types
+1. Data Service:
+	A service that connects to a data source.
+	eg. Product service
+2. Business Service
+	A business service is higher level of abstraction that builds on data service
+	eg. Order Service (To place an order we need a product and customer as well as inventory details)
+3. Translation service
+	any abstraction on a third party operation that we may want to encapsulate
+	eg. an email service
+4. Edge service
+	An edge service is used for sending data to is responsible for sending data to users and external servies.
+	Often we use edge service to slim down our payloads or modify payload to meet the third party needs
+
+MICROSERVICE DESIGN PATTERNS:
+
+1. Decomposition Patterns:
+	a) Domain based:
+		- driven by data domain model
+		- focus on data patterns
+		- start with model and not the datastore
+		- evaluate actions
+		- build the api/service contract first
+	b) Business process based:
+		- provide higher-level business functionality
+		- allows to encapsulate related domains
+		- no datasource access
+		- distinct functional uses
+		- identify process
+		- identify domains
+		- define API
+		- wire service
+	c) Atomic transaction based:
+		- Guarantee atomicity, consistency, isolation, durability (ACID) transactions across domains
+		- provide failure domains and rollbacks
+		- force blocking until commits
+		- don't use distributed transactions
+		- Domains must be in shared database
+		- clearly get the transactions defined, including rollback conditions
+
+2. Integration Patterns
+	a) API Gateway Patterns:
+		- Gateway provides a facade/proxy
+		- single layer that proxies, mutates or limits call
+		- can become a single point of failure
+		- can simple proxy
+		- can decorate payload
+		- can do aggregation of payloads
+		- can limit access
+		- gives movement buffer to underlying microservices
+	b) Process Aggregator Patterns:
+		- Problem - sometimes several business processes are required to be called together with a composite payload
+		- Aggregator provides client a single API to call and assembles the payload
+		- can introduce its own processing logic
+		- can cause long blocking calls
+	c) Edge Pattern:
+		- subset of gateway patterns
+		- Problem- Client use varies by platform and scaling a gateway presents wasted resources or clients need special business logic
+		- Edge pattern is like Client-Specific gateways
+		- Focus on isolating calls for clients
+
+3. Data Patterns
+	a) Single service database:
+		- Problem- scalability needs between database and service are related
+		- Each service implementation gets its own datasource
+		- Datastore distribute with the service
+		- Datastore scales proportionally to the service
+	b) Shared service database:
+		- All data domains exists within a single database
+		- Data distibution should be handled by database itself
+		- break data domains into schemas or similar constructs
+		- User's don't span schemas
+	c) Command Query Responsibility Segregation (CQRS):
+		- multi-model bounded contexts
+		- multi-interface operations, write versus read
+		- diverge from simple CRUD
+		- dramatically increases complexity
+	d) Asynchronus Eventing
+		- 
