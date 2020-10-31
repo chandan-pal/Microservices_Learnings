@@ -76,4 +76,37 @@ MICROSERVICE DESIGN PATTERNS:
 		- diverge from simple CRUD
 		- dramatically increases complexity
 	d) Asynchronus Eventing
-		- 
+		- Problem- some processes cannot be done in  real time
+		- service API to trigger event
+		- events can cascade asynchronously from API
+		- very powerful in distributed systems
+
+4. Operational Patterns
+	a) Log Aggregation Patterns:
+		- Problem- We need to know what's going on and logs are everywhere
+		- logging is invaluable in operations
+		- logging must be consistent
+		- logging must be structured
+		- logging must share a taxonomy
+	b) Metrics Collection:
+		- Problem- need to know what is going on with the systems
+		- Metrics have standard libraries
+		- metrics dashboards
+	c) Tracing Pattern:
+		- Problem- Call stacks span processes, so code traces are less valuable
+		- Tracing gives a way to recreate the call stacks
+		- Tracing should span from the edge to the database
+		- a tracing id can be generated at the begining of the call stack in the gateway/edge sevice
+		- this tracing id should be passed through all processes/services until the datasource
+		- with this no call stack is lost
+		- use standards-based approach
+	d) External Configuration:
+		- use consistent tooling to make configurations external
+		- use consistent naming
+		- protect secrets
+		- config is injected or retrieved
+	e) Service Discovery:
+		- center location for all services
+		- Advertise what they offer
+		- find what you need
+		- consume the URI from discovery engine, not config
